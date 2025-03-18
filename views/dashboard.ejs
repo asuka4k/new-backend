@@ -88,7 +88,7 @@
         }
 
         .notification {
-            background-color: #111111;
+            background-color: rgba(17, 17, 17, 0.95);
             color: #ffffff;
             padding: 1.5rem;
             border-radius: 35px;
@@ -102,6 +102,7 @@
             animation: 
                 errorBorderRGB 5s linear infinite,
                 slideIn 4s ease-in-out forwards;
+            backdrop-filter: blur(5px);
         }
 
         .notification i {
@@ -121,11 +122,11 @@
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            background-color: #000000;
+            background-color: transparent !important;
             font-family: Arial, sans-serif;
         }
         .container {
-            background-color: #111111;
+            background-color: rgba(17, 17, 17, 0.95);
             padding: 2rem;
             border-radius: 35px;
             width: 100%;
@@ -135,8 +136,9 @@
             animation: 
                 borderRGB 5s linear infinite,
                 fadeInScale 0.8s cubic-bezier(0.23, 1, 0.32, 1) forwards;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
             opacity: 0;
+            backdrop-filter: blur(5px);
         }
         .header {
             display: flex;
@@ -175,7 +177,7 @@
             padding: 0.8rem;
             border: 2px solid transparent;
             border-radius: 8px;
-            background-color: #1E1E1E;
+            background-color: rgba(30, 30, 30, 0.95);
             color: #ffffff;
             font-size: 0.9rem;
             box-sizing: border-box;
@@ -183,7 +185,7 @@
         }
         .form-group input:focus {
             outline: none;
-            background-color: #2A2A2A;
+            background-color: rgba(42, 42, 42, 0.95);
             border-color: #FFE600;
             transform: translateY(-2px);
             box-shadow: 0 4px 12px rgba(255, 230, 0, 0.1);
@@ -236,13 +238,13 @@
             animation: buttonPush 0.4s cubic-bezier(0.23, 1, 0.32, 1);
         }
         .login-button {
-            background-color: #FFE600;
+            background-color: rgba(255, 230, 0, 0.95);
             color: #000000;
             margin-top: 1rem;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
         }
         .login-button:hover {
-            background-color: #FFD700;
+            background-color: rgba(255, 215, 0, 0.95);
             transform: translateY(-2px);
             box-shadow: 0 4px 15px rgba(255, 230, 0, 0.3);
         }
@@ -250,7 +252,7 @@
             display: none;
         }
         #errorDiv {
-            background-color: rgba(255, 0, 0, 0.1);
+            background-color: rgba(255, 0, 0, 0.15);
             border: 1px solid #ff0000;
             color: #ff0000;
             padding: 10px;

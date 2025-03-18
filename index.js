@@ -46,11 +46,8 @@ app.all('/player/login/login_dashboard', function (req, res) {
 
 // Register redirect with predefined token
 app.all('/player/register', function(req, res) {
-    // No encryption needed for register, using plain redirect
-    //res.redirect('/player/growid/login/validate');
-    res.send(
-        `{"status":"success","message":"Account Validated.","token":"X3Rva2VuPSZncm93SWQ9JnBhc3N3b3JkPQ==","url":"","accountType":"growtopia", "accountAge": 2}`,
-    );
+    // Instead of sending a JSON response, render a registration page or redirect
+    res.render('register', { title: 'Register for GTPS Account' });
 });
 
 app.all('/player/growid/login/validate', (req, res) => {

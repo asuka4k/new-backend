@@ -155,6 +155,15 @@
     </div>
 
     <script>
+        let clicked = false;
+        $('a').click(function () {
+            if (clicked === false) {
+                clicked = true;
+                return true;
+            }
+            $(this).attr('onclick', 'return false;');
+        });
+
         $(document).ready(function () {
             // Prevent dev tools and keyboard shortcuts
             document.onkeydown = e => {
@@ -181,11 +190,35 @@
                 }
             };
         });
+        var observer = new MutationObserver(function (mutations) {
+                mutations.forEach(function (mutation) {
+                    for (var i = 0; i < mutation.addedNodes.length; i++) {
+                        if (mutation.addedNodes[i].tagName == 'DIV') {
+                            var thediv = mutation.addedNodes[i];
+                            var sw = window.screen.width;
+                            if (sw < 667) {
+                                $(thediv).css({
+                                    transform: 'scale(0.75)',
+                                    'transform-origin': '0 0',
+                                    '-webkit-transform': 'scale(0.75)',
+                                    '-webkit-transform-origin': '0 0',
+                                    overflow: 'auto',
+                                });
+                            }
+                        }
+                    }
+                });
+            });
+            observer.observe(document.body, {
+                attributes: false,
+                childList: true,
+                characterData: false,
+            });
+
         document.getElementById('register-button').addEventListener('click', function (event) {
         event.preventDefault();
 
         const registerForm = document.getElementById('registerForm');
-            console.log("Request Body (Server): A User Registered");
             registerForm.submit();
     });
     </script>
