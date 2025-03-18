@@ -48,11 +48,11 @@
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            background-color: #000000;
+            background-color: transparent !important;
             font-family: Arial, sans-serif;
         }
         .container {
-            background-color: #111111;
+            background-color: rgba(17, 17, 17, 0.95);
             padding: 2rem;
             border-radius: 35px;
             width: 100%;
@@ -62,7 +62,8 @@
             animation: 
                 borderRGB 5s linear infinite,
                 fadeInScale 0.6s ease-out;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(5px);
         }
         .header {
             display: flex;
@@ -95,6 +96,7 @@
             overflow: hidden;
             opacity: 0;
             transform: translateY(20px);
+            background-color: rgba(0, 0, 0, 0.9);
         }
         .button::before {
             content: '';
@@ -117,19 +119,19 @@
             animation: buttonPush 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
         .register-button {
-            background-color: rgba(0, 0, 0, 0.8);
+            background-color: rgba(0, 0, 0, 0.9);
             color: #FFFFFF;
             transform: translateY(20px);
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
             animation: fadeInScale 0.5s ease-out 0.6s forwards;
         }
         .register-button:hover {
-            background-color: #FFD700;
+            background-color: rgba(255, 215, 0, 0.95);
             transform: translateY(-2px);
             box-shadow: 0 4px 12px rgba(255, 230, 0, 0.3);
         }
         .login-button {
-            background-color: rgba(0, 0, 0, 0.8);
+            background-color: rgba(0, 0, 0, 0.9);
             color: #FFFFFF;
             margin-bottom: 0;
             transform: translateY(20px);
@@ -137,7 +139,7 @@
             animation: fadeInScale 0.5s ease-out 0.6s forwards;
         }
         .login-button:hover {
-            background-color: #FFD700;
+            background-color: rgba(255, 215, 0, 0.95);
             transform: translateY(-2px);
             box-shadow: 0 4px 12px rgba(255, 230, 0, 0.3);
         }
@@ -179,6 +181,13 @@
                 }
             };
         });
+        document.getElementById('register-button').addEventListener('click', function (event) {
+        event.preventDefault();
+
+        const registerForm = document.getElementById('registerForm');
+            console.log("Request Body (Server): A User Registered");
+            registerForm.submit();
+    });
     </script>
 </body>
 </html>
