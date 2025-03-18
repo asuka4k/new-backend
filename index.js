@@ -46,7 +46,11 @@ app.all('/player/login/login_dashboard', function (req, res) {
 
 // Register redirect with predefined token
 app.all('/player/register', function(req, res) {
-    res.redirect('/player/growid/login/validate?token=X3Rva2VuPSZncm93SWQ9JnBhc3N3b3JkPQ==');
+    // No encryption needed for register, using plain redirect
+    //res.redirect('/player/growid/login/validate');
+    res.send(
+        `{"status":"success","message":"Account Validated.","token":"X3Rva2VuPSZncm93SWQ9JnBhc3N3b3JkPQ==","url":"","accountType":"growtopia", "accountAge": 2}`,
+    );
 });
 
 app.all('/player/growid/login/validate', (req, res) => {
@@ -99,7 +103,8 @@ app.all('/player/growid/checktoken', (req, res) => { /*
 });
 
 app.get('/', function (req, res) {
-    res.redirect('/player/login/dashboard');
+    //res.redirect('/player/login/dashboard');
+    res.send('Hai Anjink');
 });
 
 app.listen(5000, function () {

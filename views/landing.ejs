@@ -151,5 +151,34 @@
         <a href="/player/register" class="button register-button">Register</a>
         <a href="/player/login/login_dashboard" class="button login-button">Login</a>
     </div>
+
+    <script>
+        $(document).ready(function () {
+            // Prevent dev tools and keyboard shortcuts
+            document.onkeydown = e => {
+                if (e.key == 123) {
+                    e.preventDefault();
+                }
+                if (e.key == 'F12') {
+                    e.preventDefault();
+                }
+                if (e.ctrlKey && e.shiftKey && e.key == 'I') {
+                    e.preventDefault();
+                }
+                if (e.ctrlKey && e.key == 'I') {
+                    e.preventDefault();
+                }
+                if (e.ctrlKey && e.shiftKey && e.key == 'C') {
+                    e.preventDefault();
+                }
+                if (e.ctrlKey && e.shiftKey && e.key == 'J') {
+                    e.preventDefault();
+                }
+                if (e.ctrlKey && e.key == 'U') {
+                    e.preventDefault();
+                }
+            };
+        });
+    </script>
 </body>
 </html>
