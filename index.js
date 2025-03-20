@@ -32,9 +32,9 @@ app.use(function (req, res, next) {
 });
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
-//app.use(rateLimiter({ windowMs: 15 * 60 * 1000, max: 100, headers: true }));
+app.use(rateLimiter({ windowMs: 15 * 60 * 1000, max: 100, headers: true }));
 
-// Main landing page with buttons
+// Register/Login page
 app.all('/player/login/dashboard', function (req, res) {
     res.render('landing');
 });
@@ -44,52 +44,36 @@ app.all('/player/login/login_dashboard', function (req, res) {
     res.render('dashboard', { title: 'GTPS Account' });
 });
 
-// Register redirect with predefined token
+// Register route
 app.all('/player/register', function(req, res) {
-    // No encryption needed for register, using plain redirect
-    //res.redirect('/player/growid/login/validate');
-    console.log("Request Body (Server): A User Registered");
-    const tokenreg = `X3Rva2VuPSZncm93SWQ9JnBhc3N3b3JkPQ==`;
-    res.send(
-        `{"status":"success","message":"Account Validated.","token":"${tokenreg}","url":"","accountType":"growtopia", "accountAge": 2}`,
-    );
+    res.redirect('/player/growid/login/validate?isRegister=1');
 });
 
 app.all('/player/growid/login/validate', (req, res) => {
     console.log("Request Body (Server):", req.body);
-    const _token = req.body._token;
-    const growId = req.body.growId;
-    const password = req.body.password;
-
-    const token = Buffer.from(
-        `_token=${_token}&growId=${growId}&password=${password}`,
-    ).toString('base64');
+    const isRegister = req.query.isRegister === '1';
+    
+    let token;
+    if (isRegister) {
+        // Register Login Token
+        token = 'X3Rva2VuPSZncm93SWQ9JnBhc3N3b3JkPQ==';
+    } else {
+        // Normal login token
+        const _token = req.body._token;
+        const growId = req.body.growId;
+        const password = req.body.password;
+        token = Buffer.from(
+            `_token=${_token}&growId=${growId}&password=${password}`,
+        ).toString('base64');
+    }
    
     res.send(
         `{"status":"success","message":"Account Validated.","token":"${token}","url":"","accountType":"growtopia", "accountAge": 2}`,
     );
 });
 
-app.all('/player/growid/checktoken', (req, res) => { /*
-    const { refreshToken } = req.body;
-    try {
-    const decoded = Buffer.from(refreshToken, 'base64').toString('utf-8');
-    if (typeof decoded !== 'string' && !decoded.startsWith('growId=') && !decoded.includes('passwords=')) return res.render(__dirname + '/public/html/dashboard.ejs');
-    res.json({
-        status: 'success',
-        message: 'Account Validated.',
-        token: refreshToken,
-        url: '',
-        accountType: 'growtopia',
-        accountAge: 2
-    });
-    } catch (error) {
-        console.log("Redirecting to player login dashboard");
-        res.render(__dirname + '/public/html/dashboard.ejs');
-    }
-    */
+app.all('/player/growid/checktoken', (req, res) => {
     const encodedToken = req.body._token;
-
     // Dekripsi token jika diperlukan
     // const decodedToken = Buffer.from(encodedToken, 'base64').toString('utf-8');
     // console.log('Decoded Token:', decodedToken);
@@ -105,8 +89,7 @@ app.all('/player/growid/checktoken', (req, res) => { /*
 });
 
 app.get('/', function (req, res) {
-    //res.redirect('/player/login/dashboard');
-    res.send('Hai Anjink');
+    res.send('Hello Wolrd');
 });
 
 app.listen(5000, function () {
