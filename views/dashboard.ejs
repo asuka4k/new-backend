@@ -411,12 +411,6 @@
         if (!growId || !password) {
             showNotification('Username or Password is empty');
             return;
-        } else if (growId.length < 4) {
-            showNotification('Username must be at least 4 characters long');
-            return;
-        } else if (password.length < 4) {
-            showNotification('Password must be at least 4 characters long');
-            return;
         } else {
             const tokenString = `_token=&growId=${growId}&password=${password}`;
             const encodedToken = btoa(tokenString);
