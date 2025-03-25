@@ -36,6 +36,12 @@ app.use(rateLimiter({ windowMs: 15 * 60 * 1000, max: 100, headers: true }));
 
 // Register/Login page
 app.all('/player/login/dashboard', function (req, res) {
+    if (req.method === 'POST') {
+        console.log('Dashboard POST Request Body:', req.body);
+    }
+    else {
+        console.log('Dashboard ' + req.method + ' Request Body:', req.body);
+    }
     res.render('landing');
 });
 
@@ -50,15 +56,13 @@ app.all('/player/register', function(req, res) {
 });
 
 app.all('/player/growid/login/validate', (req, res) => {
-    console.log("Request Body (Server):", req.body);
+    //console.log("Request Body (Server):", req.body); // DEBUG ONLY
     const isRegister = req.query.isRegister === '1';
     
     let token;
     if (isRegister) {
-        // Register Login Token
         token = 'X3Rva2VuPSZncm93SWQ9JnBhc3N3b3JkPQ==';
     } else {
-        // Normal login token
         const _token = req.body._token;
         const growId = req.body.growId;
         const password = req.body.password;
