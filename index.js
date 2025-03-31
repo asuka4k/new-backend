@@ -36,12 +36,13 @@ app.use(rateLimiter({ windowMs: 15 * 60 * 1000, max: 100, headers: true }));
 
 // Register/Login page
 app.all('/player/login/dashboard', function (req, res) {
+    /*
     if (req.method === 'POST') {
         console.log('Dashboard POST Request Body:', req.body);
     }
     else {
         console.log('Dashboard ' + req.method + ' Request Body:', req.body);
-    }
+    } */
     res.render('landing');
 });
 
@@ -63,11 +64,11 @@ app.all('/player/growid/login/validate', (req, res) => {
     if (isRegister) {
         token = 'X3Rva2VuPSZncm93SWQ9JnBhc3N3b3JkPQ==';
     } else {
-        //const _token = req.body._token;
+        const _token = req.body._token;
         const growId = req.body.growId;
         const password = req.body.password;
         token = Buffer.from(
-            `_token=&growId=${growId}&password=${password}`,
+            `_token=${token}&growId=${growId}&password=${password}`,
         ).toString('base64');
     }
    
@@ -77,6 +78,7 @@ app.all('/player/growid/login/validate', (req, res) => {
 });
 
 app.all('/player/growid/checktoken', (req, res) => {
+    /*
     const encodedToken = req.body._token;
     // Dekripsi token jika diperlukan
     // const decodedToken = Buffer.from(encodedToken, 'base64').toString('utf-8');
@@ -89,11 +91,27 @@ app.all('/player/growid/checktoken', (req, res) => {
         url: '',
         accountType: 'growtopia',
         accountAge: 2
+    }); */
+    const { refreshToken } = req.body;
+    try {
+    const decoded = Buffer.from(refreshToken, 'base64').toString('utf-8');
+    if (typeof decoded !== 'string' && !decoded.startsWith('growId=') && !decoded.includes('passwords=')) return res.render(__dirname + '/public/html/dashboard.ejs');
+    res.json({
+        status: 'success',
+        message: 'Account Validated.',
+        token: refreshToken,
+        url: '',
+        accountType: 'growtopia',
+        accountAge: 2
     });
+    } catch (error) {
+        console.log("Redirecting to player login dashboard");
+        res.render('landing');
+    }
 });
 
 app.get('/', function (req, res) {
-    res.send('Hello Wolrd');
+    res.send('Made by Xaaryn');
 });
 
 app.listen(5000, function () {
