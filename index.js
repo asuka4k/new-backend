@@ -63,11 +63,11 @@ app.all('/player/growid/login/validate', (req, res) => {
     if (isRegister) {
         token = 'X3Rva2VuPSZncm93SWQ9JnBhc3N3b3JkPQ==';
     } else {
-        const _token = req.body._token;
+        //const _token = req.body._token;
         const growId = req.body.growId;
         const password = req.body.password;
         token = Buffer.from(
-            `_token=${_token}&growId=${growId}&password=${password}`,
+            `_token=&growId=${growId}&password=${password}`,
         ).toString('base64');
     }
    
